@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Development",
+            "type": "shell",
+            "osx": {
+                "command": "zsh scripts/dev-setup.zsh"
+            },
+            "linux": {
+                "command": "bash scripts/dev-setup.sh"
+            },
+            "windows": {
+                "command": "powershell scripts/dev-setup.ps1"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

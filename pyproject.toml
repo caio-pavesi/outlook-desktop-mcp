@@ -1,0 +1,27 @@
+[project]
+name = "python-software-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "pytest",
+    "python-decouple",
+    "pandas",
+    "openpyxl",
+    "ipykernel",
+    "sqlalchemy",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.pyright]
+extraPaths = ["src"]
+
+[tool.python-software-template]
+version = "0.4.1"
