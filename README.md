@@ -1,10 +1,10 @@
-# Python Software Template
+# Desktop Outlook App MCP server
 
-Easily start-up a repository for your python software projects. Note that this won't be the best of for libraries or packaged apps.
+When workiq is blocked by your organization, this mcp server can act on your outlook e-mail without using blocked microsoft graph connections
 
 # Table of Contents
 
-- [Python Software Template](#python-software-template)
+- [Desktop Outlook App MCP server](#desktop-outlook-app-mcp-server)
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
 - [Usage](#usage)
@@ -19,14 +19,44 @@ Easily start-up a repository for your python software projects. Note that this w
 Clone this repository to your computer using the following code, and that's it!
 
 ```powershell
-git clone https://github.com/caio-pavesi/python-software-template.git
+git clone https://github.com/caio-pavesi/outlook-desktop-mcp.git
 ```
+
+This server automates the local Outlook desktop app via `pywin32`/COM, so it only runs on Windows with Outlook installed, signed in, and open.
 
 # Usage
 
-If you're starting a new repository from this template, first run the matching `scripts/init-template.*` for your OS (e.g. `powershell scripts/init-template.ps1` on Windows) to repoint the `docs` wiki submodule at your repository's wiki.
-
 After cloning this you can just hit `ctrl+b` and vscode will run the nescessary [scripts](/scripts) to prepare the repository with a virtual environment based on the python version being run, the required libraries, and a non-controlled `.env` variables file.
+
+The server is registered in [.vscode/mcp.json](/.vscode/mcp.json) under the name `outlook` and starts with `uv run main.py`. This requires Python and [UV] to be installed (see [Install](#install)). If you need to add it to your own VS Code `mcp.json`, use the snippet below, replacing `--directory`'s value with the absolute path to **your** local clone's `src` folder:
+
+```jsonc
+{
+  "servers": {
+    "outlook": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "<<YOUR PATH TO SRC FOLDER>>",
+        "run",
+        "main.py"
+      ]
+    }
+  }
+}
+```
+
+Once running, it exposes the following tools:
+
+| Tool | Description |
+| --- | --- |
+| `get_emails(start_date, end_date)` | List inbox emails received within a date range, including each email's `EntryID`. |
+| `reply_to_email(entry_id, body)` | Reply to the sender of an email identified by its `EntryID`. |
+| `reply_all_to_email(entry_id, body)` | Reply to everyone on an email identified by its `EntryID`. |
+| `forward_email(entry_id, to, body)` | Forward an email identified by its `EntryID` to one or more recipients. |
+| `send_email(to, subject, body, cc)` | Compose and send a brand-new email. |
+
+Uses the `EntryID` returned by `get_emails` as the `entry_id` argument for the reply/forward tools.
 
 # Docs
 
@@ -49,3 +79,4 @@ If you're using this template and you find any bugs, please do insert them into 
 <!-- Links -->
 [Python Downloads page]: https://www.python.org/downloads/
 [UV Installation page]: https://docs.astral.sh/uv/getting-started/installation/
+[UV]: https://docs.astral.sh/uv/getting-started/installation/

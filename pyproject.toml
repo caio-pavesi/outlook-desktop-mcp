@@ -3,9 +3,14 @@ name = "python-software-template"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+requires-python = ">=3.14.7"
 dependencies = []
 
 [dependency-groups]
+prod = [
+    "mcp[cli]>=2.3.0",
+    "pywin32>=312",
+]
 dev = [
     "ruff",
     "pytest",
@@ -14,6 +19,8 @@ dev = [
     "openpyxl",
     "ipykernel",
     "sqlalchemy",
+    "jupyter>=1.1.1",
+    { include-group = "prod" },
 ]
 
 [tool.pytest.ini_options]
