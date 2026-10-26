@@ -1,6 +1,6 @@
 {
   "servers": {
-    "weather": {
+    "outlook": {
       "command": "uv",
       "args": [
         "--directory",
