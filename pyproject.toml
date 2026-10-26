@@ -7,6 +7,10 @@ requires-python = ">=3.14.7"
 dependencies = []
 
 [dependency-groups]
+prod = [
+    "mcp[cli]>=2.3.0",
+    "pywin32>=312",
+]
 dev = [
     "ruff",
     "pytest",
@@ -15,7 +19,8 @@ dev = [
     "openpyxl",
     "ipykernel",
     "sqlalchemy",
-    "mcp[cli]>=2.3.0",
+    "jupyter>=1.1.1",
+    { include-group = "prod" },
 ]
 
 [tool.pytest.ini_options]
